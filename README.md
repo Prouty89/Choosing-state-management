@@ -73,3 +73,66 @@ tree among different parts of state.
 ### Remember what your data looks like (JSON)
 
 - Use what you need. 
+
+### On prop drilling
+
+- Your component should typically only contain the data it needs and nothing more, it serves as an anti-pattern elsewise.
+
+### Using Context 
+
+- Provider level ( I have the information )
+
+- Consumer level (  1 component with specific need ) (  1 component with specific need ) (  1 component with specific need )
+
+## Redux -- Flux Wars
+
+### Two-Way data binding
+
+- Template -(compile)--> View -(changes to view updates Model) --> Model -(changes to Model updates View)--> View
+
+### One-Way data binding (always from view to model)
+
+Flux:
+- Action --> Dispatcher --> Store --> View
+                                        |
+                ^^^-------(Action)-------
+
+- CONS? Model and view may not always be in sync :(
+
+- Differences from Redux? Not a library. Multiple stores. Viewed as a PATTERN, it became too much to handle. 
+
+
+### Enter Redux
+
+- Immutable store: any time it's changed, a new copy is generated. 
+- Stores and actions are pure functions, easier to test and reason about. 
+- One store, one source of truth. 
+- When weighing the benefit, or whether you need Redux, consider: 
+- increased boiler plate, decreased access to state on your FE. 
+- Use the right tool for the job!!!
+
+
+
+State-(defines)->UI-(triggers)->Actions(sent to)->Reducer-(updates)->Store-(contains)->State === Predictable!
+
+
+- Immutability is one of Redux's greatest strengths... meaning it does not modify a variable after it's created. 
+- In redux, it means not mutating state directly. We would return a new state with the modified property
+- you'll always need to extend an object exampleArray = [...exampleArray, 4] (applies to React State, as well)
+
+- Overhead? A new state is created every time we call an action, which can be redundent and costly. 
+- Shallow equality checking. 
+- Immutable.JS with Redux for increased performance (example library) ...But useEffect...
+
+- Philosophies: 
+  1 Everything lives in redux (Store contains presentation and business logic)
+  2 State should live as close to your components as possible (Presentational logic = React components Business logic = Redux store) 
+  
+- Seperating business and presentational logic makes it easier to swap out the presentational layer. 
+- How data behaves vs how it appears on the screen. 
+
+
+
+### Redux Middleware
+
+- A structure to call third-party endpoints that happen after you dispatch an action and before the action reaches the reducer. 

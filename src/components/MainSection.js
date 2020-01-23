@@ -9,11 +9,10 @@ class MainSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      completedBooks: 0,
       showAuthors: true,
     };
     this.updateBookStatus = this.updateBookStatus.bind(this);
+    this.updateBookStatusRedux = this.updateBookStatusRedux.bind(this);
   }
 
   componentWillMount() {
@@ -34,17 +33,21 @@ class MainSection extends Component {
     })
   }
 
+  updateBookStatusRedux(bookId) {
+    this.props.actions.updateBookStatus(bookId)
+  }
+
   render() {
     return (
       <BookProvider value={{showAuthors: this.state.showAuthors}}>
       <section className="main">
-      <button onClick={()=> this.setState({showAuthors: !this.state.showAuthors})} style={{textSize: '14px', margin: '5px', color: 'blue'}}> Toggle authors </button>
-        <VisibleBookList books={this.state.books} updateBookStatus={this.updateBookStatus} />
          <Footer  
-          completedCount={this.state.completedBooks}
-          activeCount={this.state.books.length - this.state.completedBooks}
+          completedCount={this.props.completedBooks}
+          activeCount={this.props.books.length - this.props.completedBooks}
           onClearCompleted={this.props.actions.clearCompleted}
         />
+      <button onClick={()=> this.setState({showAuthors: !this.state.showAuthors})} style={{textSize: '14px', margin: '5px', color: 'blue'}}> Toggle authors </button>
+        <VisibleBookList books={this.props.books} updateBookStatus={this.updateBookStatus} />
       </section>
       </BookProvider>
     );
